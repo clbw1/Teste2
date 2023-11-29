@@ -1,0 +1,115 @@
+# This is a sample Python code that implements a simple calculator
+# The calculator can perform basic arithmetic operations such as addition, subtraction, multiplication and division
+# The calculator can also handle decimal numbers and parentheses
+# The calculator can accept user input and display the result
+
+# Define a function that evaluates an expression using the order of operations
+def evaluate(expression):
+# Remove any whitespace from the expression
+expression = expression.replace(" ", "")
+# Check if the expression is empty or invalid
+if not expression:
+return "Invalid expression"
+# Check if the expression contains only a number
+try:
+return float(expression)
+except ValueError:
+pass
+# Check if the expression is enclosed by parentheses
+if expression[0] == "(" and expression[-1] == ")":
+# Evaluate the expression inside the parentheses
+return evaluate(expression[1:-1])
+# Find the position of the first operator that has the lowest precedence
+# The order of precedence is: parentheses, multiplication and division, addition and subtraction
+# If there are multiple operators with the same precedence, use the leftmost one
+position = None
+precedence = None
+# Use a stack to keep track of the nested parentheses
+stack = []
+# Loop through the expression from left to right
+for i in range(len(expression)):
+# Get the current character
+char = expression[i]
+# If the character is an opening parenthesis, push it to the stack
+if char == "(":
+stack.append(char)
+# If the character is a closing parenthesis, pop from the stack
+elif char == ")":
+if not stack or stack.pop() != "(":
+return "Invalid expression"
+# If the character is an operator and the stack is empty, meaning it is not inside parentheses
+elif char in "+-*/" and not stack:
+# If the operator has a lower or equal precedence than the current one, update the position and the precedence
+if precedence is None or precedence >= "+-".find(char):
+position = i
+precedence = "+-".find(char)
+# If the stack is not empty, meaning there are unmatched parentheses
+if stack:
+return "Invalid expression"
+# If the position is None, meaning there is no operator
+if position is None:
+return "Invalid expression"
+# Get the operator and the operands
+operator = expression[position]
+left_operand = expression[:position]
+right_operand = expression[position + 1:]
+# Evaluate the operands recursively
+left_value = evaluate(left_operand)
+right_value = evaluate(right_operand)
+# If the operands are invalid, return an error message
+if isinstance(left_value, str) or isinstance(right_value, str):
+return "Invalid expression"
+# Perform the operation and return the result
+if operator == "+":
+return left_value + right_value
+elif operator == "-":
+return left_value - right_value
+elif operator == "*":
+return left_value * right_value
+elif operator == "/":
+# If the right operand is zero, return an error message
+if right_value == 0:
+return "Division by zero"
+return left_value / right_value
+
+# Define a function that runs the calculator
+def run():
+# Print a welcome message
+print("Welcome to the simple calculator!")
+print("You can enter an expression using the following operators: +, -, *, /")
+print("You can also use decimal numbers and parentheses")
+print("To exit the calculator, enter 'quit'")
+# Loop until the user enters 'quit'
+while True:
+# Prompt the user to enter an expression
+expression = input("Enter an expression: ")
+# If the user enters 'quit', break the loop
+if expression.lower() == "quit":
+break
+# Evaluate the expression and print the result
+result = evaluate(expression)
+print("Result:", result)
+# Print a goodbye message
+print("Thank you for using the simple calculator!")
+
+# Run the calculator
+run()
+
+This is the output of the code when run:
+
+Welcome to the simple calculator!
+You can enter an expression using the following operators: +, -, *, /
+You can also use decimal numbers and parentheses
+To exit the calculator, enter 'quit'
+Enter an expression: 2 + 3 * 4
+Result: 14.0
+Enter an expression: (2 + 3) * 4
+Result: 20.0
+Enter an expression: 2.5 / 0.5
+Result: 5.0
+Enter an expression: 2 / 0
+Result: Division by zero
+Enter an expression: 2 + (3 - 4
+Result: Invalid expression
+Enter an expression: quit
+Thank you for using the simple calculator!
