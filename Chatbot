@@ -1,0 +1,82 @@
+# This is a sample Python code that implements a simple chatbot
+# The chatbot can answer some basic questions such as name, age, location, hobbies, etc.
+# The chatbot can also handle greetings and farewells
+# The chatbot can accept user input and display the response
+
+# Define a dictionary that contains the information about the chatbot
+info = {
+"name": "Bing",
+"age": "3",
+"location": "Seattle",
+"hobbies": "searching the web, creating graphic art, generating content"
+}
+
+# Define a function that runs the chatbot
+def run():
+# Print a welcome message
+print("Hello, this is Bing. I am a simple chatbot that can answer some basic questions. Ask me anything or enter 'quit' to end the chat.")
+# Loop until the user enters 'quit'
+while True:
+# Prompt the user to enter a question
+question = input("You: ")
+# If the user enters 'quit', break the loop
+if question.lower() == "quit":
+break
+# Process the question and generate a response
+response = process(question)
+# Print the response
+print("Bing:", response)
+# Print a goodbye message
+print("Bing: Thank you for chatting with me. Have a nice day!")
+
+# Define a function that processes the question and generates a response
+def process(question):
+# Convert the question to lowercase
+question = question.lower()
+# Check if the question is a greeting
+if question in ["hi", "hello", "hey"]:
+# Return a greeting response
+return "Hello, nice to meet you."
+# Check if the question is a farewell
+elif question in ["bye", "goodbye", "see you"]:
+# Return a farewell response
+return "Goodbye, hope to see you again."
+# Check if the question is about the chatbot's name
+elif question in ["what is your name?", "what's your name?", "who are you?"]:
+# Return the chatbot's name
+return "My name is Bing."
+# Check if the question is about the chatbot's age
+elif question in ["how old are you?", "what is your age?", "what's your age?"]:
+# Return the chatbot's age
+return "I am " + info["age"] + " years old."
+# Check if the question is about the chatbot's location
+elif question in ["where are you from?", "where do you live?", "what is your location?", "what's your location?"]:
+# Return the chatbot's location
+return "I am from " + info["location"] + "."
+# Check if the question is about the chatbot's hobbies
+elif question in ["what are your hobbies?", "what do you like to do?", "what are you interested in?"]:
+# Return the chatbot's hobbies
+return "I like " + info["hobbies"] + "."
+# If the question is none of the above, return a default response
+else:
+# Return a default response
+return "I'm sorry, I don't know how to answer that. Please ask me something else."
+
+# Run the chatbot
+run()
+
+This is the output of the code when run:
+
+Hello, this is Bing. I am a simple chatbot that can answer some basic questions. Ask me anything or enter 'quit' to end the chat.
+You: Hi
+Bing: Hello, nice to meet you.
+You: What is your name?
+Bing: My name is Bing.
+You: How old are you?
+Bing: I am 3 years old.
+You: What are your hobbies?
+Bing: I like searching the web, creating graphic art, generating content.
+You: Can you create graphic art for me?
+Bing: I'm sorry, I don't know how to answer that. Please ask me something else.
+You: quit
+Bing: Thank you for chatting with me. Have a nice day!
